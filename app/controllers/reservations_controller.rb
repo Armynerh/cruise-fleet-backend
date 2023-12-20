@@ -1,10 +1,11 @@
 class ReservationsController < ApplicationController
   def show
     @reservation = Reservation.find(params[:id])
+    @total = Item.find(@reservation.item_id).cost
 
     respond_to do |format|
       format.html
-      format.json { render json: { result: { reservation: @reservation} } }
+      format.json { render json: { result: { reservation: @reservation, total: @total} } }
     end
   end
 
