@@ -4,7 +4,7 @@ Rails.application.routes.draw do
   delete 'sessions/log_out', to: 'sessions#logout'
   get 'sessions/logged_in', to: 'sessions#logged_in'
 
-  resources :items, except: [:edit, :update, :new]
+  resources :items, only: [:index, :show, :create, :edit, :update, :destroy]
 
   resources :users do
     resources :reservations, only: [:index, :show, :create, :destroy]
