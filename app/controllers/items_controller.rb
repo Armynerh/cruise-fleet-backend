@@ -18,7 +18,7 @@ class ItemsController < ApplicationController
   end
 
   def create
-    item_params = params.require(:item).permit(:name, :availability, :photo, :cost)
+    item_params = params.require(:item).permit(:name, :availability, :photo, :cost, :description)
 
     @result = if (@item = Item.create!(item_params))
                 'Item Created Succesfully!'
@@ -48,7 +48,7 @@ class ItemsController < ApplicationController
   end
 
   def update
-    item_update_params = params.require(:item).permit(:name, :availability, :photo, :cost)
+    item_update_params = params.require(:item).permit(:name, :availability, :photo, :cost, :description)
     @item = Item.find(params[:id])
 
     @result = if @item.update(item_update_params)

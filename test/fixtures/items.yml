@@ -5,9 +5,11 @@ one:
   availability: false
   photo: MyString
   cost: 1.5
+  description: MyString
 
 two:
   name: MyString
   availability: false
   photo: MyString
   cost: 1.5
+  description: MyString
