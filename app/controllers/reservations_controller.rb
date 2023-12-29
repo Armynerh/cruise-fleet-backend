@@ -12,17 +12,17 @@ class ReservationsController < ApplicationController
 
     respond_to do |format|
       format.html
-      format.json { render json: { result: { reservation: @reservation, total: @total} } }
+      format.json { render json: { result: { reservation: @reservation, total: @total } } }
     end
   end
 
   def create
     reservation_params = params.require(:reservation).permit(:user_id, :item_id, :start, :finish)
-    if @new_reservation = Reservation.create!(reservation_params)
-      @result = "Reservation created succesfully!"
-    else
-      @result = "Reservation not created!!!"
-    end
+    @result = if (@new_reservation = Reservation.create!(reservation_params))
+                'Reservation created succesfully!'
+              else
+                'Reservation not created!!!'
+              end
     respond_to do |format|
       format.html
       format.json { render json: { result: @result, reservation: @new_reservation } }
@@ -31,11 +31,11 @@ class ReservationsController < ApplicationController
 
   def destroy
     @reservation = Reservation.find(params[:id])
-    if @reservation.destroy
-      @result = "Reservatino destroyed succesfully!"
-    else
-      @result = "Reservatino not destroyed!!!"
-    end
+    @result = if @reservation.destroy
+                'Reservatino destroyed succesfully!'
+              else
+                'Reservatino not destroyed!!!'
+              end
     respond_to do |format|
       format.html
       format.json { render json: { result: @result, reservation: @reservation } }

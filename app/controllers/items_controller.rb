@@ -4,7 +4,7 @@ class ItemsController < ApplicationController
 
     respond_to do |format|
       format.html
-      format.json { render json: {result: { items: @items } } }
+      format.json { render json: { result: { items: @items } } }
     end
   end
 
@@ -13,18 +13,18 @@ class ItemsController < ApplicationController
 
     respond_to do |format|
       format.html
-      format.json { render json: { result: {item: @item} } }
+      format.json { render json: { result: { item: @item } } }
     end
   end
 
   def create
-    item_params = params.require(:item).permit(:name, :availability, :photo, :cost)
+    item_params = params.require(:item).permit(:name, :availability, :photo, :cost, :description)
 
-    if @item = Item.create!(item_params)
-      @result = "Item Created Succesfully!"
-    else
-      @result = "Item not Created!!!"
-    end
+    @result = if (@item = Item.create!(item_params))
+                'Item Created Succesfully!'
+              else
+                'Item not Created!!!'
+              end
 
     respond_to do |format|
       format.html
@@ -35,11 +35,11 @@ class ItemsController < ApplicationController
   def destroy
     @item = Item.find(params[:id])
 
-    if @item.destroy 
-      @result = "Item destroyed!"
-    else
-      @result = "Item not destroyed!!!"
-    end
+    @result = if @item.destroy
+                'Item destroyed!'
+              else
+                'Item not destroyed!!!'
+              end
 
     respond_to do |format|
       format.html
@@ -48,14 +48,14 @@ class ItemsController < ApplicationController
   end
 
   def update
-    item_update_params = params.require(:item).permit(:name, :availability, :photo, :cost)
+    item_update_params = params.require(:item).permit(:name, :availability, :photo, :cost, :description)
     @item = Item.find(params[:id])
 
-    if @item.update(item_update_params)
-      @result = "Item updated succesfully!"
-    else
-      @result = "Item not updated!!!"
-    end
+    @result = if @item.update(item_update_params)
+                'Item updated succesfully!'
+              else
+                'Item not updated!!!'
+              end
 
     respond_to do |format|
       format.html
