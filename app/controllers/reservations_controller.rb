@@ -1,14 +1,16 @@
 class ReservationsController < ApplicationController
   def index
     @reservations = Reservation.where(user_id: )
+
     respond_to do |format|
+      format.html
       format.json { render json: { result: @reservations } }
     end
   end
 
   def show
-    @reservation = Reservation.find(params[:id])
-    @total = Item.find(@reservation.item_id).cost
+    @reservation = Reservation.includes(user: :reservations, item: [images_attachments: :blob]).find(params[:id])
+    @total = @reservation.item.cost
 
     respond_to do |format|
       format.html
