@@ -1,6 +1,6 @@
 class ReservationsController < ApplicationController
   def index
-    @reservations = Reservation.includes(:user, :item).all
+    @reservations = Reservation.where(user_id: )
 
     respond_to do |format|
       format.html
