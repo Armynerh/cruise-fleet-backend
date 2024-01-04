@@ -2,13 +2,12 @@ class ItemsController < ApplicationController
   def index
     @items = Item.includes(images_attachments: :blob).all
     @item_image_urls = @items.map { |item| item.images.first&.url }.compact
-  
+
     respond_to do |format|
       format.html
       format.json { render json: { result: { items: @items, item_image_urls: @item_image_urls } } }
     end
   end
-  
 
   def show
     @item = Item.find(params[:id])

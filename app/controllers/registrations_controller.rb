@@ -5,7 +5,7 @@ class RegistrationsController < ApplicationController
 
     if user.save
       session[:user_id] = user.id
-      render json: { status: 'created', user: user }, status: :created
+      render json: { status: 'created', user: }, status: :created
     else
       render json: { status: 'error', errors: user.errors.full_messages }, status: :unprocessable_entity
     end

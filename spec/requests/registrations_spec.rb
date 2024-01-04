@@ -30,7 +30,6 @@ RSpec.describe RegistrationsController, type: :controller do
         parsed_response = JSON.parse(response.body)
         expect(parsed_response['status']).to eq('created')
         expect(parsed_response['user']['email']).to eq('test@example.com')
-  
       end
     end
 

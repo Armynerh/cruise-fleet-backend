@@ -18,7 +18,6 @@ RSpec.describe ItemsController, type: :controller do
       get :index
       expect(response).to render_template(:index)
     end
-
   end
 
   describe 'GET #show' do
@@ -47,5 +46,4 @@ RSpec.describe ItemsController, type: :controller do
   end
 
   # Add tests for other controller actions like create, destroy, and update
-
 end

@@ -18,7 +18,6 @@ class ReservationsController < ApplicationController
     end
   end
 
-
   def create
     reservation_params = params.require(:reservation).permit(:user_id, :item_id, :start, :finish, :city)
     @result = if (@new_reservation = Reservation.create!(reservation_params))
