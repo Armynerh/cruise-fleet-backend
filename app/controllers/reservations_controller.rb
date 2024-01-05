@@ -1,11 +1,7 @@
 class ReservationsController < ApplicationController
   def index
-    @reservations = Reservation.where(user_id: )
-
-    respond_to do |format|
-      format.html
-      format.json { render json: { result: @reservations } }
-    end
+    @reservations = @current_user.reservations
+    render json: { result: @reservations }
   end
 
   def show
