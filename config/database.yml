@@ -18,10 +18,10 @@ default: &default
   # For details on connection pooling, see Rails configuration guide
   # https://guides.rubyonrails.org/configuring.html#database-pooling
   pool: <%= ENV.fetch("RAILS_MAX_THREADS") { 5 } %>
-  host: localhost
+  hostname: dpg-cme62mun7f5s739fcip0-a
   port: 5432
-  user: developer
-  password: developer
+  user: cruise_fleet_user
+  password: 9XFmq7tu8nhedAYXfUAEgAlMlfhSQmbW
 
 development:
   <<: *default
@@ -83,4 +83,4 @@ test:
 #
 production:
   <<: *default
-  url: <%= ENV['DATABASE_URL'] %>
+  url: <%= ENV['INTERNAL_DATABASE_URL'] %>
