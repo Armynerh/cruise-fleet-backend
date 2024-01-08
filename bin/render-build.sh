@@ -1,5 +1,7 @@
 
 #!/bin/bash
+export PATH="/Users/oyeniyikenny/.rbenv/shims/ruby:$PATH"
+
 
 # This is a sample render-build.sh script
 
