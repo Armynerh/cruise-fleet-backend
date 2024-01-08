@@ -83,4 +83,7 @@ test:
 #
 production:
   <<: *default
-  url: <%= ENV['DATABASE_URL'] %>
+  database: cruise_fleet_production
+  username: cruise_fleet
+  password: <%= ENV["CRUISE_FLEET_DATABASE_PASSWORD"] %>
+  
