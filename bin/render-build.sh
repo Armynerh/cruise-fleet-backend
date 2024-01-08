@@ -1,26 +1,22 @@
-
 #!/bin/bash
-export PATH="/Users/oyeniyikenny/.rbenv/shims/ruby:$PATH"
 
+# Exit on error
+set -e
 
-# This is a sample render-build.sh script
+# Install Ruby dependencies
+echo "Installing Ruby dependencies..."
+bundle install
 
-# Set up your environment if needed
-# export PATH="/path/to/your/ruby/bin:$PATH"
+# Run database migrations
+echo "Running database migrations..."
+bundle exec rails db:migrate
 
-# Your build commands go here
-echo "Building the project..."
+# Precompile assets
+echo "Precompiling assets..."
+bundle exec rails assets:precompile
 
-# Example: Run a Rails migration
-# bundle exec rake db:migrate
+# Optionally, seed the database
+echo "Seeding the database..."
+bundle exec rails db:seed
 
-# Example: Install dependencies
-# bundle install
-
-# Example: Build assets
-# bundle exec rake assets:precompile
-
-# Any other commands needed for your build process
-
-# Print a message indicating the build is complete
-echo "Build complete!"
+echo "Build script completed successfully."
