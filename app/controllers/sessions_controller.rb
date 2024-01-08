@@ -1,4 +1,6 @@
 class SessionsController < ApplicationController
+  before_action :set_current_user
+
   def create
     user = User.find_by(email: params['user']['email'])
       .try(:authenticate, params['user']['password'])
