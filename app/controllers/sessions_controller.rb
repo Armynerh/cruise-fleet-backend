@@ -1,4 +1,6 @@
 class SessionsController < ApplicationController
+  before_action :set_current_user
+
   def create
     user = User.find_by(email: params['user']['email'])
       .try(:authenticate, params['user']['password'])
@@ -23,13 +25,11 @@ class SessionsController < ApplicationController
     render json: { status: 200, logged_out: true }
   end
 
-  # private
+  private
 
+  def set_current_user
+    return unless session[:user_id]
 
-
-  # def set_current_user
-  #   return unless session[:user_id]
-
-  #   @current_user = User.find(session[:user_id])
-  # end
+    @current_user = User.find(session[:user_id])
+  end
 end

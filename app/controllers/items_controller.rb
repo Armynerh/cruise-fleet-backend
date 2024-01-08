@@ -1,11 +1,10 @@
 class ItemsController < ApplicationController
   def index
-    @items = Item.includes(images_attachments: :blob).all
-    @item_image_urls = @items.map { |item| item.images.first&.url }.compact
+    @items = Item.all
 
     respond_to do |format|
       format.html
-      format.json { render json: { result: { items: @items, item_image_urls: @item_image_urls } } }
+      format.json { render json: { result: { items: @items } } }
     end
   end
 
@@ -19,7 +18,7 @@ class ItemsController < ApplicationController
   end
 
   def create
-    item_params = params.require(:item).permit(:name, :availability, :photo, :cost, :description, images: [])
+    item_params = params.require(:item).permit(:name, :availability, :photo, :cost, :description)
 
     @result = if (@item = Item.create!(item_params))
                 'Item Created Succesfully!'
@@ -49,7 +48,7 @@ class ItemsController < ApplicationController
   end
 
   def update
-    item_update_params = params.require(:item).permit(:name, :availability, :photo, :cost, :description, images: [])
+    item_update_params = params.require(:item).permit(:name, :availability, :photo, :cost, :description)
     @item = Item.find(params[:id])
 
     @result = if @item.update(item_update_params)
