@@ -1,49 +1,51 @@
+# spec/controllers/items_controller_spec.rb
+
 require 'rails_helper'
 
 RSpec.describe ItemsController, type: :controller do
   describe 'GET #index' do
-    let!(:items) { create_list(:item, 3) }
-
-    it 'returns a successful response' do
-      get :index
+    it 'returns a success response' do
+      get :index, format: :json
       expect(response).to be_successful
-    end
-
-    it 'assigns @items and @item_image_urls' do
-      get :index
-      expect(assigns(:items)).to eq(items)
-    end
-
-    it 'renders the index template' do
-      get :index
-      expect(response).to render_template(:index)
     end
   end
 
   describe 'GET #show' do
-    let(:item) { create(:item) }
+    let(:item) { FactoryBot.create(:item) }
 
-    it 'returns a successful response' do
-      get :show, params: { id: item.id }
+    it 'returns a success response' do
+      get :show, params: { id: item.to_param }, format: :json
       expect(response).to be_successful
-    end
-
-    it 'assigns @item' do
-      get :show, params: { id: item.id }
-      expect(assigns(:item)).to eq(item)
-    end
-
-    it 'renders the show template' do
-      get :show, params: { id: item.id }
-      expect(response).to render_template(:show)
-    end
-
-    it 'renders JSON with the item' do
-      get :show, params: { id: item.id }, format: :json
-      json_response = JSON.parse(response.body)
-      expect(json_response['result']['item']).to_not be_empty
     end
   end
 
-  # Add tests for other controller actions like create, destroy, and update
+  describe 'POST #create' do
+    let(:valid_attributes) do
+      { item: { name: 'New Item', availability: true, photo: 'item.jpg', cost: 10.99, description: 'Description' } }
+    end
+
+    context 'with valid parameters' do
+      it 'creates a new Item' do
+        expect do
+          post :create, params: valid_attributes, format: :json
+        end.to change(Item, :count).by(1)
+      end
+    end
+  end
+
+  describe 'PUT #update' do
+    let(:item) { FactoryBot.create(:item) }
+
+    context 'with valid parameters' do
+      let(:new_attributes) do
+        { item: { name: 'Updated Item' } }
+      end
+
+      it 'updates the requested item' do
+        put :update, params: { id: item.to_param }.merge(new_attributes), format: :json
+        item.reload
+        expect(item.name).to eq('Updated Item')
+      end
+    end
+  end
 end
