@@ -20,15 +20,15 @@ RSpec.describe ItemsController, type: :controller do
   end
 
   describe 'POST #create' do
-    let(:valid_attributes) {
+    let(:valid_attributes) do
       { item: { name: 'New Item', availability: true, photo: 'item.jpg', cost: 10.99, description: 'Description' } }
-    }
+    end
 
     context 'with valid parameters' do
       it 'creates a new Item' do
-        expect {
+        expect do
           post :create, params: valid_attributes, format: :json
-        }.to change(Item, :count).by(1)
+        end.to change(Item, :count).by(1)
       end
     end
   end
@@ -37,9 +37,9 @@ RSpec.describe ItemsController, type: :controller do
     let(:item) { FactoryBot.create(:item) }
 
     context 'with valid parameters' do
-      let(:new_attributes) {
+      let(:new_attributes) do
         { item: { name: 'Updated Item' } }
-      }
+      end
 
       it 'updates the requested item' do
         put :update, params: { id: item.to_param }.merge(new_attributes), format: :json
@@ -47,6 +47,5 @@ RSpec.describe ItemsController, type: :controller do
         expect(item.name).to eq('Updated Item')
       end
     end
-
   end
 end

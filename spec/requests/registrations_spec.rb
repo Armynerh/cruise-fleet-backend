@@ -12,12 +12,6 @@ RSpec.describe RegistrationsController, type: :controller do
           }
         }
       end
-
-      
-
-      
-
-     
     end
 
     context 'with invalid parameters' do
