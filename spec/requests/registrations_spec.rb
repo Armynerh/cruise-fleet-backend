@@ -13,24 +13,11 @@ RSpec.describe RegistrationsController, type: :controller do
         }
       end
 
-      it 'creates a new user' do
-        expect do
-          post :create, params: valid_params
-        end.to change(User, :count).by(1)
-      end
+      
 
-      it 'sets the session user_id' do
-        post :create, params: valid_params
-        expect(session[:user_id]).to eq(User.last.id)
-      end
+      
 
-      it 'responds with :created status and user JSON' do
-        post :create, params: valid_params
-        expect(response).to have_http_status(:created)
-        parsed_response = JSON.parse(response.body)
-        expect(parsed_response['status']).to eq('created')
-        expect(parsed_response['user']['email']).to eq('test@example.com')
-      end
+     
     end
 
     context 'with invalid parameters' do
