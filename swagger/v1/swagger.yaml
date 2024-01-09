@@ -1,11 +1,230 @@
----
 openapi: 3.0.1
 info:
   title: API V1
   version: v1
-paths: {}
+paths:
+  /sessions:
+    post:
+      summary: Create a new session (login)
+      operationId: createSession
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                username:
+                  type: string
+                password:
+                  type: string
+      responses:
+        '201':
+          description: Session created successfully
+        '422':
+          description: Invalid request
+
+  /sessions/log_out:
+    delete:
+      summary: Log out the current user
+      operationId: logoutSession
+      responses:
+        '200':
+          description: Logout successful
+
+  /sessions/logged_in:
+    get:
+      summary: Check if a user is logged in
+      operationId: checkLoggedIn
+      responses:
+        '200':
+          description: User is logged in
+        '401':
+          description: User is not logged in
+
+  /registrations:
+    post:
+      summary: Create a new user registration
+      operationId: createUserRegistration
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                username:
+                  type: string
+                password:
+                  type: string
+                email:
+                  type: string
+      responses:
+        '201':
+          description: User registration successful
+        '422':
+          description: Invalid request
+
+  /items:
+    get:
+      summary: Get a list of items
+      operationId: getItems
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json:
+              example:
+                result:
+                  items:
+                    - id: 1
+                      name: Item 1
+                    - id: 2
+                      name: Item 2
+
+    post:
+      summary: Create a new item
+      operationId: createItem
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                name:
+                  type: string
+                availability:
+                  type: boolean
+                photo:
+                  type: string
+                cost:
+                  type: number
+                description:
+                  type: string
+      responses:
+        '201':
+          description: Item created successfully
+        '422':
+          description: Invalid request
+
+    /{id}:
+      get:
+        summary: Get details of a specific item
+        operationId: getItemDetails
+        parameters:
+          - name: id
+            in: path
+            required: true
+            schema:
+              type: integer
+        responses:
+          '200':
+            description: Successful response
+            content:
+              application/json:
+                example:
+                  result:
+                    item:
+                      id: 1
+                      name: Item 1
+                      availability: true
+                      photo: 'item1.jpg'
+                      cost: 10.99
+                      description: 'Description of Item 1'
+
+      put:
+        summary: Update details of a specific item
+        operationId: updateItem
+        parameters:
+          - name: id
+            in: path
+            required: true
+            schema:
+              type: integer
+        requestBody:
+          required: true
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  name:
+                    type: string
+                  availability:
+                    type: boolean
+                  photo:
+                    type: string
+                  cost:
+                    type: number
+                  description:
+                    type: string
+        responses:
+          '200':
+            description: Item updated successfully
+          '404':
+            description: Item not found
+          '422':
+            description: Invalid request
+
+      delete:
+        summary: Delete a specific item
+        operationId: deleteItem
+        parameters:
+          - name: id
+            in: path
+            required: true
+            schema:
+              type: integer
+        responses:
+          '200':
+            description: Item deleted successfully
+          '404':
+            description: Item not found
+
+  /users/{user_id}/reservations:
+    get:
+      summary: Get a list of reservations for a specific user
+      operationId: getUserReservations
+      parameters:
+        - name: user_id
+          in: path
+          required: true
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json:
+              example:
+                result:
+                  reservations:
+                    - id: 1
+                      start: '2024-01-01'
+                      finish: '2024-01-10'
+                    - id: 2
+                      start: '2024-02-01'
+                      finish: '2024-02-10'
+
+    post:
+      summary: Create a new reservation for a specific user
+      operationId: createUserReservation
+      parameters:
+        - name: user_id
+          in: path
+          required: true
+          schema:
+            type: integer
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                item_id:
+                  type: integer
 servers:
-- url: https://{defaultHost}
-  variables:
-    defaultHost:
-      default: www.example.com
+  - url: https://cruise-fleet-backend.onrender.com
+    description: Backend server for Cruise Fleet
