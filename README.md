@@ -29,7 +29,10 @@
 
 **[Cruise-fleet]** is a mobile web application where you can manage car reservations: you have a list of cars ready for rent, and you can see how much money you spent daily based on your choice.
 
+[Kanban Board](https://github.com/users/Armynerh/projects/7)
 
+![Kanban_Page_1](291368597-fdecd5b9-fee0-4d35-b60a-6d1f745c2f9e.png)
+![Kanban_Page_2](kanban2.png)
 
 ## 🛠 Built With <a name="built-with"></a>
 
@@ -129,6 +132,7 @@ To run tests, run the following command:
 ### Deployment
 
 - [Live Demo Link](https://cruisefleet.onrender.com)
+
  
   
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
@@ -136,6 +140,8 @@ To run tests, run the following command:
 <!-- AUTHORS -->
 
 ## 👥 Authors <a name="authors"></a>
+ 
+ We are a team of Four people including:
 
 👤 **Author1**
  *[Kenny Henshaw]*
