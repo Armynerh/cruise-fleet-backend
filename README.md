@@ -123,7 +123,7 @@ To run tests, run the following command:
 ```
 
 ```sh
-  rspec
+  rspec spec/requests/
 ```
 
 ### Deployment
