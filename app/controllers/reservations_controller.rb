@@ -1,12 +1,14 @@
 class ReservationsController < ApplicationController
   def index
-    @reservations = @current_user.reservations
-    render json: { result: @reservations }
+    @reservations = Reservation.all
+    respond_to do |format|
+      format.json { render json: { result: @reservations } }
+    end
   end
 
   def show
-    @reservation = Reservation.includes(user: :reservations, item: [images_attachments: :blob]).find(params[:id])
-    @total = @reservation.item.cost
+    @reservation = Reservation.find(params[:id])
+    @total = Item.find(@reservation.item_id).cost
 
     respond_to do |format|
       format.html
@@ -15,7 +17,9 @@ class ReservationsController < ApplicationController
   end
 
   def create
-    reservation_params = params.require(:reservation).permit(:user_id, :item_id, :start, :finish, :city)
+    reservation_params = params.require(:reservation).permit(:user_id, :item_id, :start, :finish, :city, :day_cost,
+                                                             :total_days, :total_cost)
+
     @result = if (@new_reservation = Reservation.create!(reservation_params))
                 'Reservation created succesfully!'
               else
